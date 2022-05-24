@@ -1,0 +1,11 @@
+
+SELECT a.manv,
+Case when a.manv ='MR0292' then 'Đỗ Thị Hồng Thủy' else
+c.tencvbh end as tennhanvien,a.makhcu,d.tenkhachhang,a.thongtinthanhtoan,a.giaiphap,a.thoigiangoi from d_tttt_ins a
+JOIN (
+SELECT makhcu,max(thoigiangoi) as thoigiangoi  FROM d_tttt_ins GROUP BY 1 ) b
+on a.makhcu =b.makhcu and a.thoigiangoi =b.thoigiangoi
+LEFT JOIN d_users c on a.manv = c.manv
+LEFT JOIN d_phutrachno_ins d on d.makhcu = a.makhcu
+where a.thoigiangoi >='2022-05-01' and a.manv <>'MR0292'
+ORDER BY a.thoigiangoi desc,a.manv
